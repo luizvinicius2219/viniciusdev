@@ -1,4 +1,4 @@
-export type Experience = {
+﻿export type Experience = {
   company: string;
   role: string;
   period: string;
@@ -21,6 +21,7 @@ export type Project = {
   github?: string;
   cta?: string;
   featured?: boolean;
+  caseStudy?: boolean;
 };
 
 export const profile = {
@@ -172,6 +173,7 @@ export const projects: Project[] = [
     impact: "Economia estimada de 6 a 12 horas por inventário no pós-contagem.",
     tags: ["FastAPI", "SQLModel", "PostgreSQL", "pandas", "OpenPyXL", "JWT"],
     featured: true,
+    caseStudy: true,
   },
   {
     number: "03",

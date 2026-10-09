@@ -1,4 +1,4 @@
-import { InteractionLayer } from "@/components/InteractionLayer";
+﻿import { InteractionLayer } from "@/components/InteractionLayer";
 import { Nav } from "@/components/Nav";
 import { SiteFooter } from "@/components/SiteFooter";
 import { Icon } from "@/components/Icon";
@@ -44,13 +44,41 @@ export default function ProjectsPage() {
         <div className="projects-featured-grid">
           {featured.map((project) => (
             <article id={project.slug} className="project-case-card interactive-card" data-tilt data-reveal key={project.slug}>
-              <div className="project-case-visual" aria-hidden="true">
+              <div className="project-case-visual">
                 <span>{project.number}</span>
-                <div className="project-case-diagram">
-                  <i /><i /><i /><i />
-                  <b>{project.tags.slice(0, 3).join(" · ")}</b>
-                </div>
+                {project.caseStudy ? (
+                  <a
+                    href={`/projects/${project.slug}`}
+                    data-cursor="OPEN"
+                    aria-label={`Abrir case ${project.title}`}
+                    style={{
+                      display: "block",
+                      width: "100%",
+                      height: "100%",
+                      overflow: "hidden",
+                      borderRadius: "inherit",
+                    }}
+                  >
+                    <img
+                      src="/projects/auditcount/02-dashboard.webp"
+                      alt="Tela do AuditCount"
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        minHeight: 270,
+                        objectFit: "cover",
+                        display: "block",
+                      }}
+                    />
+                  </a>
+                ) : (
+                  <div className="project-case-diagram" aria-hidden="true">
+                    <i /><i /><i /><i />
+                    <b>{project.tags.slice(0, 3).join(" · ")}</b>
+                  </div>
+                )}
               </div>
+
               <div className="project-case-copy">
                 <small>{project.subtitle}</small>
                 <h3>{project.title}</h3>
@@ -58,6 +86,15 @@ export default function ProjectsPage() {
                 <strong>{project.impact}</strong>
                 <div className="project-case-tags">{project.tags.map((tag) => <span key={tag}>{tag}</span>)}</div>
                 <div className="project-case-actions">
+                  {project.caseStudy && (
+                    <a
+                      href={`/projects/${project.slug}`}
+                      className="magnetic"
+                      data-cursor="OPEN"
+                    >
+                      Abrir case completo <Icon name="arrow" />
+                    </a>
+                  )}
                   {project.href && <a href={project.href} target="_blank" rel="noreferrer" className="magnetic" data-cursor="OPEN">{project.cta || "Abrir projeto"} <Icon name="external" /></a>}
                   {project.github && project.github !== project.href && <a href={project.github} target="_blank" rel="noreferrer" className="magnetic project-case-secondary" data-cursor="GITHUB"><Icon name="github" /> GitHub</a>}
                 </div>
@@ -83,7 +120,27 @@ export default function ProjectsPage() {
                 <p>{project.description}</p>
                 <div>{project.tags.map((tag) => <em key={tag}>{tag}</em>)}</div>
               </div>
-              {project.href ? <a href={project.href} target="_blank" rel="noreferrer" data-cursor="OPEN" aria-label={`Abrir ${project.title}`}><Icon name="arrow" /></a> : <span className="project-list-status">CASE</span>}
+              {project.caseStudy ? (
+                <a
+                  href={`/projects/${project.slug}`}
+                  data-cursor="OPEN"
+                  aria-label={`Abrir case ${project.title}`}
+                >
+                  <Icon name="arrow" />
+                </a>
+              ) : project.href ? (
+                <a
+                  href={project.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  data-cursor="OPEN"
+                  aria-label={`Abrir ${project.title}`}
+                >
+                  <Icon name="arrow" />
+                </a>
+              ) : (
+                <span className="project-list-status">CASE</span>
+              )}
             </article>
           ))}
         </div>
@@ -93,3 +150,4 @@ export default function ProjectsPage() {
     </main>
   );
 }
+

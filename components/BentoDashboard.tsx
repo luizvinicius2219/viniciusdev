@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { Icon } from "@/components/Icon";
 import { profile, projects } from "@/data/portfolio";
@@ -118,7 +118,7 @@ export function BentoDashboard() {
           <div className="project-mini-grid project-mini-grid--v9">
             {previewProjects.map((project) => (
               <a
-                href={`/projects#${project.slug}`}
+                href={project.caseStudy ? `/projects/${project.slug}` : `/projects#${project.slug}`}
                 key={project.number}
                 data-cursor="OPEN"
                 aria-label={`Abrir ${project.title} na página de projetos`}
